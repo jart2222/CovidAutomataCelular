@@ -1,76 +1,28 @@
-# coding=System
 
-class Persona(object):
+class Persona():
 
-  """
-   
-
-  :version:
-  :author:
-  """
-
-  """ ATTRIBUTES
-
-   Edad del individuo que va de en rangos de 1-7, osea de 0-10, 10-20.....70 o mas
-
-  edad  (private)
-
-   puedes ser un numero entre 1-4,  las enfermedades cronicas podrian ser diabetis,
-   hipertension, obesidad, ITS
-
-  enfermedadesCronicas  (private)
-
-   Si el individuo esta contagiado o no
-
-  contagiado  (private)
-
-   Si el individuo esta vacunado o no
-   
-
-  vacunado  (private)
-
-   Si el individuo recientemente tuvo la enfermedad y posee inmunidad
-
-  inmunidadAdquirida  (private)
-
-   numero entre 0-1, inicialmente es 0
-
-  factorDeRiesgo  (private)
-
-   
-
-  idPersona  (private)
-
-   
-
-  diasInfectado  (private)
-
-   El dia que adquiere la enfermedad
-   
-
-  diaAdquisicionVirus  (private)
-
-   Ubicacion X en matriz
-
-  ubicacionX  (private)
-
-   ubicacion Y en matriz
-   
-
-  ubicacionY  (private)
-
-   
-
-  espaciosC_  (private)
-
-  """
+  def __init__(self,idPersona,edad,sexo,emfermedadesCronicas,contagiado,vacunado,ubicacionX,ubicacionY):
+    self.idPersona=idPersona;
+    self.edad=edad;
+    self.sexo=sexo;
+    self.emfermedadesCronicas=emfermedadesCronicas;
+    self.contagiado=contagiado;
+    self.vacunado=vacunado;
+    self.ubicacionX = ubicacionX;
+    self.ubicacionY = ubicacionY;
+    self.vivo=True;
+    self.inmunidadAdquiridad=False;
+    self.factorDeRiesgo=0;
+    self.diasInfectado = 0;
+    self.diasAdquisicionVirus = 0;
+    self.espaciosC=[];
 
   def asignarFactorRiesgo(self):
     """
      Asigna factor de riesgo, la cual esta dictada por las variables sexo,edad,
      enfermedades cronicas, vacunado, inmunidad
 
-    @return  :
+    @return  factor de riego de la persona segun sus caracterisiticas :
     @author
     """
     pass
