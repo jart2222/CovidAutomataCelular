@@ -22,8 +22,8 @@ class Imagenes:
             self.listaCoordenadasY.append(persona.ubicacionY)
 
         ax.plot(self.listaCoordenadasX, self.listaCoordenadasY, self.listaFormatosGrafica[0])
-        ax.set_title(f" Casa {self.espacios.id}")  # Add a title to the axes.
-        self.nombreImagen = f"EspaciosEtapa\\Casa_{self.espacios.id}.png"
+        ax.set_title(f" {self.espacios.nombre} {self.espacios.id}")  # Add a title to the axes.
+        self.nombreImagen = f"EspaciosEtapa\\{self.espacios.nombre}_{self.espacios.id}.png"
         plt.savefig(self.nombreImagen)
         plt.close()
 

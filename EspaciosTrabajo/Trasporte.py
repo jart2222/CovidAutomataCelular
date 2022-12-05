@@ -9,9 +9,8 @@ class Trasporte (Espacio):
   :author:
   """
 
-  def __int__(self, dim,id):
-    super().__int__(dim,id)
+  def __int__(self, dim,id,nombre):
+    super().__int__(dim,id,nombre)
 
-  def __str__(self) -> str:
-    return super().__str__("Trasporte")
+
 

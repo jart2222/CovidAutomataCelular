@@ -36,7 +36,7 @@ class AsignacionLugares:
 
     def crearEspacios(self):
         for i in range(self.casas):
-            casa = Casa(self.dim, self.contadorLugares)
+            casa = Casa(self.dim, self.contadorLugares, "Casa")
             self.contadorLugares += 1;
 
             for i in range(random.randint(0, 10)):

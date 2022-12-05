@@ -1,7 +1,8 @@
 import numpy as np;
 class Espacio():
-  def __init__(self,dim,id):
+  def __init__(self,dim,id,nombre):
     self.id=id;
+    self.nombre=nombre;
     self.dim = dim;
     self.a = np.zeros((dim,dim));
     self.listaAutomatasContenidos = []
@@ -58,8 +59,8 @@ class Espacio():
       self.listaAutomatasContenidos.append(persona);
       self.a[persona.ubicacionX, persona.ubicacionY] = 1
 
-  def __str__(self, nombre) -> str:
-    texto=f"Espacio: {nombre}\n" \
+  def __str__(self) -> str:
+    texto=f"Espacio: {self.nombre}\n" \
           f" id: {self.id}\n "
 
     if(len(self.listaAutomatasContenidos)>0):
