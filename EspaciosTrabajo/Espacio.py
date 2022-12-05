@@ -1,31 +1,12 @@
-# coding=System
-
-class Espacio(object):
-
-  """
-   
-
-  :version:
-  :author:
-  """
-
-  """ ATTRIBUTES
-
-   Dimension de matriz cuadrada
-   
-
-  dim  (private)
-
-   Matriz de numpy de nxn
-
-  a  (private)
-
-   Lista de automatas contenidos en la matriz
-   
-
-  listaDeAutomatasContenidos  (private)
-
-  """
+import numpy as np;
+class Espacio():
+  def __init__(self,dim,id):
+    self.id=id;
+    self.dim = dim;
+    self.a = np.zeros((dim,dim));
+    self.listaAutomatasContenidos = []
+    self.arregloEnteros1 = [*range(-1, 2, 1)]
+    self.arregloEnteros2 = [*range(-1, 2, 1)]
 
   def dectarVecinoAutomata(self):
     """
@@ -72,5 +53,17 @@ class Espacio(object):
     """
     pass
 
+  def addPersona(self, persona):
+    if persona not in self.listaAutomatasContenidos :
+      self.listaAutomatasContenidos.append(persona);
+      self.a[persona.ubicacionX, persona.ubicacionY] = 1
 
+  def __str__(self, nombre) -> str:
+    texto=f"Espacio: {nombre}\n" \
+          f" id: {self.id}\n "
 
+    if(len(self.listaAutomatasContenidos)>0):
+      for automata in self.listaAutomatasContenidos:
+        texto+=str(automata)+"\n "
+
+    return texto

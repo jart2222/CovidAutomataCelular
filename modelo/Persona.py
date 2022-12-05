@@ -1,6 +1,5 @@
 
 class Persona():
-
   def __init__(self,idPersona,edad,sexo,emfermedadesCronicas,contagiado,vacunado,ubicacionX,ubicacionY):
     self.idPersona=idPersona;
     self.edad=edad;
@@ -10,12 +9,12 @@ class Persona():
     self.vacunado=vacunado;
     self.ubicacionX = ubicacionX;
     self.ubicacionY = ubicacionY;
-    self.vivo=True;
-    self.inmunidadAdquiridad=False;
-    self.factorDeRiesgo=0;
+    self.vivo = True;
+    self.inmunidadAdquiridad = False;
+    self.factorDeRiesgo = self.asignarFactorRiesgo();
     self.diasInfectado = 0;
     self.diasAdquisicionVirus = 0;
-    self.espaciosC=[];
+    self.espaciosC = [];
 
   def asignarFactorRiesgo(self):
     """
@@ -25,6 +24,19 @@ class Persona():
     @return  factor de riego de la persona segun sus caracterisiticas :
     @author
     """
+
+    riesgo=self.edad;
+
+    if(self.sexo=="H"):
+        riesgo = riesgo+1;
+
+    if (self.emfermedadesCronicas >0):
+        riesgo=riesgo+self.emfermedadesCronicas;
+
+    return riesgo;
+
+
+
     pass
 
   def vidaMuerte(self, azar):
@@ -49,5 +61,27 @@ class Persona():
     """
     pass
 
+  def __eq__(self, persona):
+      return (self.ubicacionX == persona.ubicacionX and self.ubicacionY == persona.ubicacionY)
+  def __str__(self) -> str:
+
+      info=f"Persona: {self.idPersona}\n\t" \
+           f"Edad: {self.edad} \n\t" \
+           f"Sexo: {self.sexo} \n\t" \
+           f"EmfermedadesCronica: {self.emfermedadesCronicas} \n\t" \
+           f"Contiagado: {self.contagiado} \n\t" \
+           f"Vacunado: {self.vacunado} \n\t" \
+           f"Ubicacion: ({self.ubicacionX},{self.ubicacionY}) \n\t" \
+           f"Vivo: {self.vivo} \n\t" \
+           f"Inmunidad: {self.inmunidadAdquiridad} \n\t" \
+           f"Factor de riesgo: {self.factorDeRiesgo} \n\t"
+
+      if(self.contagiado):
+          return info+\
+                 f"Dias de infectado: {self.diasInfectado} \n\t" \
+                 f"Dias de Adquision del Virus: {self.diasAdquisicionVirus} \n\t"
+
+      else:
+           return info
 
 

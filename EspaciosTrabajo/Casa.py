@@ -1,8 +1,6 @@
-# coding=System
-from Espacio import *
-from Espacio import *
+from EspaciosTrabajo.Espacio import Espacio
 
-class Casa (Espacio, Espacio):
+class Casa (Espacio):
 
   """
    
@@ -10,6 +8,12 @@ class Casa (Espacio, Espacio):
   :version:
   :author:
   """
+
+  def __int__(self, dim, id):
+    super().__int__(dim,id)
+
+  def __str__(self) -> str:
+    return super().__str__("Casa")
 
 
 
