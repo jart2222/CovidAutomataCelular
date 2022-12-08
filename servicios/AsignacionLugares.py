@@ -38,11 +38,20 @@ class AsignacionLugares:
         for i in range(self.casas):
             casa = Casa(self.dim, self.contadorLugares, "Casa")
             self.contadorLugares += 1;
-
             for i in range(random.randint(0, 10)):
                 casa.addPersona(self.creacionAutomata())
-
             self.espacioInstancia.append(casa)
+
+        escuela=Escuela(self.dim, self.contadorLugares, "Escuela")
+        self.contadorLugares += 1;
+        trabajo=Escuela(self.dim, self.contadorLugares, "Trabajo")
+        self.contadorLugares += 1;
+        trasporte=Trasporte(self.dim, self.contadorLugares, "Trasporte")
+        self.contadorLugares += 1;
+
+        self.espacioInstancia.append(escuela)
+        self.espacioInstancia.append(trabajo)
+        self.espacioInstancia.append(trasporte)
 
     def asignarEspacioPersona(self, persona):
         """
@@ -52,6 +61,8 @@ class AsignacionLugares:
         @return  :
         @author
         """
+
+
         pass
 
 
