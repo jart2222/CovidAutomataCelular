@@ -59,12 +59,20 @@ class Espacio():
       self.listaAutomatasContenidos.append(persona);
       self.a[persona.ubicacionX, persona.ubicacionY] = 1
 
+  def removePersona(self, persona):
+    if persona in self.listaAutomatasContenidos:
+      self.listaAutomatasContenidos.remove(persona);
+      self.a[persona.ubicacionX, persona.ubicacionY] = 0
+      print(f"\t\tSI me elimine de espacio {self.id} la persona con id {persona.idPersona}")
+    else:
+      print(f"\t\tNO me elimine de espacio {self.id} la persona con id {persona.idPersona}")
   def __str__(self) -> str:
     texto=f"Espacio: {self.nombre}\n" \
-          f" id: {self.id}\n "
+          f" id: {self.id}\n " \
+          f"dim: {self.dim}"
 
-    if(len(self.listaAutomatasContenidos)>0):
+    if(len(self.listaAutomatasContenidos)>=0):
       for automata in self.listaAutomatasContenidos:
-        texto+=str(automata)+"\n "
+        texto+=str(automata)+"\n"
 
     return texto

@@ -1,6 +1,6 @@
 
 class Persona():
-  def __init__(self,idPersona,edad,sexo,emfermedadesCronicas,contagiado,vacunado,ubicacionX,ubicacionY):
+  def __init__(self,idPersona,edad,sexo,emfermedadesCronicas,contagiado,vacunado,ubicacionX,ubicacionY,espacioActual):
     self.idPersona=idPersona;
     self.edad=edad;
     self.sexo=sexo;
@@ -9,6 +9,7 @@ class Persona():
     self.vacunado=vacunado;
     self.ubicacionX = ubicacionX;
     self.ubicacionY = ubicacionY;
+    self.espacioActual = espacioActual;
     self.vivo = True;
     self.inmunidadAdquiridad = False;
     self.factorDeRiesgo = self.asignarFactorRiesgo();
@@ -16,6 +17,8 @@ class Persona():
     self.diasAdquisicionVirus = 0;
     self.espaciosC = [];
 
+  def setEspacioActual(self, idEspacio):
+      self.espacioActual=idEspacio
   def asignarFactorRiesgo(self):
     """
      Asigna factor de riesgo, la cual esta dictada por las variables sexo,edad,
@@ -63,6 +66,7 @@ class Persona():
 
   def __eq__(self, persona):
       return (self.ubicacionX == persona.ubicacionX and self.ubicacionY == persona.ubicacionY)
+
   def __str__(self) -> str:
 
       info=f"Persona: {self.idPersona}\n\t" \
