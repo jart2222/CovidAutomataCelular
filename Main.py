@@ -6,6 +6,8 @@ from repositorio.Repositorio import Repositorio
 
 asignacionLugares=AsignacionLugares(5,10)
 asignacionLugares.asignarEspacioPersona()
+asignacionLugares.moverPersona()
+asignacionLugares.moverPersona()
 repositorio=Repositorio()
 repositorio.truncarInfo()
 

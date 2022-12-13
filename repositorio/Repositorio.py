@@ -36,10 +36,11 @@ class Repositorio (Espacio):
         sql = f"""INSERT INTO `covid19_automatas`.`persona`
                (`id_persona`, `edad`, `sexo`, `emfermedades_cronicas`, `contagiado`,
                `vacunado`, `ubicacion_x`, `ubicacion_y`, `vivo`, `inmunidad_adquiridad`,
-                `factor_de_riesgo`, `dias_infectado`, `dias_adquisicion_virus`,`id_espacio`)
+                `factor_de_riesgo`, `dias_infectado`, `dias_adquisicion_virus`,`id_espacio`,`trasporte`,`trabajo`,`casa`)
               VALUES ('{persona.idPersona}', '{persona.edad}', '{persona.sexo}', '{persona.emfermedadesCronicas}', '{int(persona.contagiado)}',
                '{int(persona.vacunado)}', '{persona.ubicacionX}', '{persona.ubicacionY}', '{int(persona.vivo)}', '{int(persona.inmunidadAdquiridad)}',
-                '{persona.factorDeRiesgo}', '{persona.diasInfectado}', '{persona.diasAdquisicionVirus}', '{espacio.id}');"""
+                '{persona.factorDeRiesgo}', '{persona.diasInfectado}', '{persona.diasAdquisicionVirus}', '{espacio.id}', '{persona.trasposte} ', 
+                '{persona.trabajo}', '{persona.casa}');"""
         self.cursor.execute(sql);
       self.connection.commit()
 

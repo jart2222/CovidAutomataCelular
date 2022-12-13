@@ -12,10 +12,14 @@ class Persona():
     self.espacioActual = espacioActual;
     self.vivo = True;
     self.inmunidadAdquiridad = False;
+    self.casa=espacioActual
     self.factorDeRiesgo = self.asignarFactorRiesgo();
     self.diasInfectado = 0;
     self.diasAdquisicionVirus = 0;
     self.espaciosC = [];
+    self.trasposte=0;
+    self.trabajo=0;
+
 
   def setEspacioActual(self, idEspacio):
       self.espacioActual=idEspacio
@@ -37,10 +41,10 @@ class Persona():
         riesgo=riesgo+self.emfermedadesCronicas;
 
     return riesgo;
-
-
-
-    pass
+  def setTrabajo(self, id):
+      self.trabajo= id;
+  def setTrasposte(self, id):
+      self.trasposte= id;
 
   def vidaMuerte(self, azar):
     """
