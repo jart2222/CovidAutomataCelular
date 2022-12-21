@@ -12,8 +12,8 @@ class Repositorio (Espacio):
 
   def insertarEspacios(self,espacio):
     try:
-      sqlEspacios="INSERT INTO `covid19_automatas`.`espacios` (`id_espacio`, `nombre`, `dimension`, `personas_contenidas`) " \
-         f"VALUES ({espacio.id}, '{espacio.nombre}', '{espacio.dim}', {len(espacio.listaAutomatasContenidos)});"
+      sqlEspacios="INSERT INTO `covid19_automatas`.`espacios` (`id_espacio`, `nombre`, `dimension`, `personas_contenidas`, `etapa`) " \
+         f"VALUES ({espacio.id}, '{espacio.nombre}', '{espacio.dim}', {len(espacio.listaAutomatasContenidos)}, {espacio.etapa});"
       self.cursor.execute(sqlEspacios);
     except Exception as e:
       print(e)
@@ -36,11 +36,11 @@ class Repositorio (Espacio):
         sql = f"""INSERT INTO `covid19_automatas`.`persona`
                (`id_persona`, `edad`, `sexo`, `emfermedades_cronicas`, `contagiado`,
                `vacunado`, `ubicacion_x`, `ubicacion_y`, `vivo`, `inmunidad_adquiridad`,
-                `factor_de_riesgo`, `dias_infectado`, `dias_adquisicion_virus`,`id_espacio`,`trasporte`,`trabajo`,`casa`)
+                `factor_de_riesgo`, `dias_infectado`, `dias_adquisicion_virus`,`id_espacio`,`trasporte`,`trabajo`,`casa`, `etapa`)
               VALUES ('{persona.idPersona}', '{persona.edad}', '{persona.sexo}', '{persona.emfermedadesCronicas}', '{int(persona.contagiado)}',
                '{int(persona.vacunado)}', '{persona.ubicacionX}', '{persona.ubicacionY}', '{int(persona.vivo)}', '{int(persona.inmunidadAdquiridad)}',
                 '{persona.factorDeRiesgo}', '{persona.diasInfectado}', '{persona.diasAdquisicionVirus}', '{espacio.id}', '{persona.trasposte} ', 
-                '{persona.trabajo}', '{persona.casa}');"""
+                '{persona.trabajo}', '{persona.casa}', '{espacio.etapa}');"""
         self.cursor.execute(sql);
       self.connection.commit()
 

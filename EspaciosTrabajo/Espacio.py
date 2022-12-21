@@ -5,6 +5,7 @@ class Espacio():
     self.nombre=nombre;
     self.dim = dim;
     self.a = np.zeros((dim,dim));
+    self.etapa=0;
     self.listaAutomatasContenidos = []
     self.arregloEnteros1 = [*range(-1, 2, 1)]
     self.arregloEnteros2 = [*range(-1, 2, 1)]
@@ -18,6 +19,8 @@ class Espacio():
     """
     pass
 
+  def setEtapa(self, etapa):
+    self.etapa=etapa
   def darMovimientoAutomata(self):
     """
      Le asigna un movimiento a cada automata
@@ -60,12 +63,15 @@ class Espacio():
       self.a[persona.ubicacionX, persona.ubicacionY] = 1
 
   def removePersona(self, persona):
+
     if persona in self.listaAutomatasContenidos:
       self.listaAutomatasContenidos.remove(persona);
       self.a[persona.ubicacionX, persona.ubicacionY] = 0
-      print(f"\t\tSI me elimine de espacio {self.id} la persona con id {persona.idPersona}")
+      #print(f"\t\tSI me elimine de espacio {self.id} la persona con id {persona.idPersona}")
     else:
       print(f"\t\tNO me elimine de espacio {self.id} la persona con id {persona.idPersona}")
+
+
   def __str__(self) -> str:
     texto=f"Espacio: {self.nombre}\n" \
           f" id: {self.id}\n " \

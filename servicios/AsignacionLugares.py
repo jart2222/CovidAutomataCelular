@@ -1,20 +1,22 @@
 import random
-from EspaciosTrabajo.Espacio import Espacio
 from EspaciosTrabajo.Casa import Casa
 from EspaciosTrabajo.Escuela import Escuela
 from EspaciosTrabajo.Trabajo import Trabajo
 from EspaciosTrabajo.Trasporte import Trasporte
 from modelo.Persona import Persona;
+
+
 class AsignacionLugares:
     def __init__(self,casas,dim):
         self.dim=dim
-        self.casasContador=casas;
+        self.lugaresCasas=casas;
         self.espacioInstancia = []
         self.dias = 0
         self.contadorLugares=0;
         self.lugaresTrasporte=random.randint(1,casas);
         self.lugaresEscuelas=random.randint(1,casas);
         self.lugaresTrabajos=random.randint(1,casas);
+        self.contadorEtapas=0;
         self.idIndividuos=0;
         self.casas = []
         self.trasportes = []
@@ -46,7 +48,7 @@ class AsignacionLugares:
         return p;
 
     def crearEspacios(self):
-        for i in range(self.casasContador):
+        for i in range(self.lugaresCasas):
             casa = Casa(self.dim, self.contadorLugares, "Casa")
 
             for i in range(random.randint(0, 10)):
@@ -86,7 +88,7 @@ class AsignacionLugares:
         self.filtrarEspacios()
 
         for casa in self.casas:
-            print(f"La casa {casa.id} tiene {len(casa.listaAutomatasContenidos)}")
+            #print(f"La casa {casa.id} tiene {len(casa.listaAutomatasContenidos)}")
             for persona in self.personas:
                 if (persona in casa.listaAutomatasContenidos):
                     if (persona.edad >= 0 and persona.edad <= 1):
@@ -98,57 +100,51 @@ class AsignacionLugares:
                     if (persona.edad >= 6):
                         continue
 
-    def moverPersona(self):
+    def moverPersonaEspacio(self):
+        self.aumentarEtapa()
+
         for persona in self.personas:
             idEspacioActual=persona.espacioActual
             edad=persona.edad
-            if((idEspacioActual<self.casasContador) and (edad<6)):#persona esta en su casa y por su edad tiene que tomar el trasporte
-                persona.setEspacioActual(persona.trasposte)
-                self.trasportes[persona.trasposte - (self.casasContador)].addPersona(persona)
-                self.casas[persona.casa].removePersona(persona)
+
+            if((idEspacioActual<self.lugaresCasas) and (edad < 6)):#persona esta en su casa y por su edad tiene que tomar el trasporte
+                trasporte= self.trasportes[persona.trasposte - (self.lugaresCasas)]
+                casa= self.casas[persona.casa]
+                self.cambioEspacio(persona, trasporte, casa,persona.trasposte )
                 continue
 
-            if((idEspacioActual>=self.casasContador)): # persona se encuentra en el trasporte y tiene que cambiar a su trabajo
-                if(edad>=0 and edad<2):
-                    persona.setEspacioActual(persona.trabajo)
-                    self.escuelas[persona.trabajo-(self.casasContador+self.lugaresTrasporte)].addPersona(persona)
-                    self.trasportes[persona.trasposte-self.casasContador].removePersona(persona)
-                    continue
-                if (edad>=2 and edad<=6):
-                    persona.setEspacioActual(persona.trabajo)
-                    self.trabajos[persona.trabajo-(self.casasContador+self.lugaresTrasporte+self.lugaresEscuelas)].addPersona(persona)
-                    self.trasportes[persona.trasposte-self.casasContador].removePersona(persona)
-                    continue
-                #persona.setEspacioActual(persona.trabajo)
+            if ((idEspacioActual >= self.lugaresCasas) and (idEspacioActual < (
+                    self.lugaresCasas + self.lugaresTrasporte))):  # persona se encuentra en el trasporte
 
-                #self.trasportes[persona.trasposte].addPersona(persona)
-                #self.casas[persona.casa].removePersona(persona)
-                #print(persona.trasposte - (self.casasContador + self.lugaresEscuelas + self.lugaresTrabajos))
-                #print(persona.trasposte)
-                #print("============================")
+                trasporte = self.trasportes[persona.trasposte - self.lugaresCasas]
 
-        # for casa in casas:
-        #     print(f"La casa {casa.id} tiene {len(casa.listaAutomatasContenidos)}")
-        #     for persona in listaPersona:
-        #
-        #         if (persona in casa.listaAutomatasContenidos):
-        #             if (persona.edad >= 0 and persona.edad <= 1):
-        #                 persona.setEspacioActual(escuelas[0].id)
-        #                 escuelas[0].addPersona(persona)
-        #                 persona.setTrabajo(escuelas[0].id)
-        #                 casa.removePersona(persona)
-        #
-        #             if (persona.edad >= 2 and persona.edad <= 4):
-        #                 persona.setEspacioActual(trabajos[0].id)
-        #                 trabajos[0].addPersona(persona)
-        #                 persona.setTrabajo(trabajos[0].id)
-        #                 casa.removePersona(persona)
-        #
-        #             if (persona.edad > 4):
-        #                 persona.setEspacioActual(trasportes[0].id)
-        #                 trasportes[0].addPersona(persona)
-        #                 persona.setTrasposte(trasportes[0].id)
-        #                 casa.removePersona(persona)
+                if(self.contadorEtapas%4==0):#etapa en que las personas ya fueron al trabajo y regresan
+                    casa = self.casas[persona.casa]
+                    self.cambioEspacio(persona,casa, trasporte, persona.casa)
+                    continue
+
+                else: #personas que van al trabajo
+                        if (edad >= 0 and edad < 2):
+                            escuela = self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
+                            self.cambioEspacio(persona, escuela, trasporte, persona.trabajo)
+                            continue
+                        if (edad >= 2 and edad <= 6):
+                            trabajo = self.trabajos[
+                                persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
+                            self.cambioEspacio(persona, trabajo, trasporte, persona.trabajo)
+                            continue
+
+            if((idEspacioActual >=(self.lugaresCasas+self.lugaresTrasporte)) ): # persona se encuentra en el trabajo y toma el trasporte para llegar a su casa
+                trasporte=self.trasportes[persona.trasposte - self.lugaresCasas]
+                if (edad >= 0 and edad < 2):
+                    escuela=self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
+                    self.cambioEspacio(persona,trasporte,escuela,persona.trasposte)
+                    continue
+
+                if (edad >= 2 and edad <= 6):
+                    trabajo=self.trabajos[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
+                    self.cambioEspacio(persona,trasporte,trabajo,persona.trasposte)
+                    continue
 
     def filtrarEspacios(self):
         for espacio in self.espacioInstancia:
@@ -168,4 +164,17 @@ class AsignacionLugares:
         for casa in self.casas:
             for persona in casa.listaAutomatasContenidos:
                 self.personas.append(persona)
+
+    def aumentarEtapa(self):
+        self.contadorEtapas += 1
+        for espacio in self.espacioInstancia:
+            espacio.setEtapa(self.contadorEtapas)
+    def cambioEspacio(self, persona, espacioP, espacioA, asignacionE):
+        persona.setEspacioActual(asignacionE)
+        espacioP.addPersona(persona)
+        espacioA.removePersona(persona)
+
+
+
+
 

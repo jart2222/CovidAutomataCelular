@@ -69,7 +69,8 @@ class Persona():
     pass
 
   def __eq__(self, persona):
-      return (self.ubicacionX == persona.ubicacionX and self.ubicacionY == persona.ubicacionY)
+      return  self.idPersona==persona.idPersona
+      #return (self.ubicacionX == persona.ubicacionX and self.ubicacionY == persona.ubicacionY)
 
   def __str__(self) -> str:
 
