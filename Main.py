@@ -1,8 +1,7 @@
 from repositorio.Repositorio import Repositorio
 from servicios.AsignacionLugares import AsignacionLugares
 from servicios.Imagenes import Imagenes
-
-asignacionLugares=AsignacionLugares(5,10)
+asignacionLugares=AsignacionLugares(2,10)
 asignacionLugares.asignarEspacioPersona()
 repositorio=Repositorio()
 repositorio.truncarInfo()
