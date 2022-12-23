@@ -23,8 +23,9 @@ class Imagenes:
             fig, ax = plt.subplots()
             ax.axis([0, self.espacios.dim, 0, self.espacios.dim])
             ax.plot(self.listaCoordenadasX, self.listaCoordenadasY, self.listaFormatosGrafica[0])
-            ax.set_title(f" {self.espacios.nombre}_{self.espacios.id}_{self.espacios.etapa}")  # Add a title to the axes.
-            self.nombreImagen = f"EspaciosEtapa\\{self.espacios.nombre}_{self.espacios.id}_{self.espacios.etapa}.png"
+            ax.set_title(f" Etapa: {self.espacios.etapa} {self.espacios.nombre} {self.espacios.id}")  # Add a title to the axes.
+            #self.nombreImagen = f"EspaciosEtapa\\{self.espacios.nombre}_N{self.espacios.id}_E{self.espacios.etapa}.png"
+            self.nombreImagen = f"EspaciosEtapa\\Etapa_{self.espacios.etapa}_{self.espacios.nombre}_{self.espacios.id}.png"
             plt.savefig(self.nombreImagen)
             plt.close()
 

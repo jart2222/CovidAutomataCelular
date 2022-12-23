@@ -1,6 +1,8 @@
 class Persona():
+
+
     def __init__(self, idPersona, edad, sexo, emfermedadesCronicas, contagiado, vacunado, ubicacionX, ubicacionY,
-                 espacioActual, dimension):
+                 espacioActual):
         self.idPersona = idPersona;
         self.edad = edad;
         self.sexo = sexo;
@@ -10,7 +12,6 @@ class Persona():
         self.ubicacionX = ubicacionX;
         self.ubicacionY = ubicacionY;
         self.espacioActual = espacioActual;
-        self.dimension = dimension;
         self.vivo = True;
         self.inmunidadAdquiridad = False;
         self.casa = espacioActual

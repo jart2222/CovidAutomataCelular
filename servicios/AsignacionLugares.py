@@ -7,23 +7,24 @@ from modelo.Persona import Persona;
 
 
 class AsignacionLugares:
-    def __init__(self, casas, dim):
-        self.dim = dim
-        self.lugaresCasas = casas;
+    def __init__(self,casas,dim):
+        self.dim=dim
+        self.lugaresCasas=casas;
         self.espacioInstancia = []
         self.dias = 0
-        self.contadorLugares = 0;
-        self.lugaresTrasporte = random.randint(1, casas);
-        self.lugaresEscuelas = random.randint(1, casas);
-        self.lugaresTrabajos = random.randint(1, casas);
-        self.contadorEtapas = 0;
-        self.idIndividuos = 0;
+        self.contadorLugares=0;
+        self.lugaresTrasporte=random.randint(1,casas);
+        self.lugaresEscuelas=random.randint(1,casas);
+        self.lugaresTrabajos=random.randint(1,casas);
+        self.contadorEtapas=0;
+        self.idIndividuos=0;
         self.casas = []
         self.trasportes = []
         self.trabajos = []
         self.escuelas = []
         self.personas = []
         self.crearEspacios();
+
 
     def creacionAutomata(self, contadorLugares):
         """
@@ -38,10 +39,9 @@ class AsignacionLugares:
                     , random.randint(0, 3)  # Enfermedades Cronicas
                     , False  # Contagiado
                     , random.choice([True, False])  # Vacunado
-                    , random.randint(0, self.dim - 1)  # Coordenada X
-                    , random.randint(0, self.dim - 1)  # Coordenada Y
-                    , contadorLugares
-                    , self.dim
+                    , random.randint(0, self.dim-1)  # Coordenada X
+                    , random.randint(0, self.dim-1) # Coordenada Y
+                    ,contadorLugares
                     )
         self.idIndividuos += 1
 
@@ -50,27 +50,32 @@ class AsignacionLugares:
     def crearEspacios(self):
         for i in range(self.lugaresCasas):
             casa = Casa(self.dim, self.contadorLugares, "Casa")
-            for _ in range(1):
-            #for i in range(random.randint(0, 10)):
+
+            for i in range(random.randint(0, 10)):
                 casa.addPersona(self.creacionAutomata(self.contadorLugares))
 
             self.espacioInstancia.append(casa)
             self.contadorLugares += 1;
 
         for _ in range(self.lugaresTrasporte):
-            trasporte = Trasporte(self.dim, self.contadorLugares, "Trasporte")
+            trasporte=Trasporte(self.dim, self.contadorLugares, "Trasporte")
             self.contadorLugares += 1;
             self.espacioInstancia.append(trasporte)
 
         for _ in range(self.lugaresEscuelas):
-            escuela = Escuela(self.dim, self.contadorLugares, "Escuela")
+            escuela=Escuela(self.dim, self.contadorLugares, "Escuela")
             self.contadorLugares += 1;
             self.espacioInstancia.append(escuela)
 
         for _ in range(self.lugaresTrabajos):
-            trabajo = Trabajo(self.dim, self.contadorLugares, "Trabajo")
+            trabajo=Trabajo(self.dim, self.contadorLugares, "Trabajo")
             self.contadorLugares += 1;
             self.espacioInstancia.append(trabajo)
+
+
+
+
+
 
     def asignarEspacioPersona(self):
         """
@@ -83,11 +88,11 @@ class AsignacionLugares:
         self.filtrarEspacios()
 
         for casa in self.casas:
-            # print(f"La casa {casa.id} tiene {len(casa.listaAutomatasContenidos)}")
+            #print(f"La casa {casa.id} tiene {len(casa.listaAutomatasContenidos)}")
             for persona in self.personas:
                 if (persona in casa.listaAutomatasContenidos):
                     if (persona.edad >= 0 and persona.edad <= 1):
-                        persona.setTrabajo(self.escuelas[random.randint(0, self.lugaresEscuelas - 1)].id)
+                        persona.setTrabajo(self.escuelas[random.randint(0,self.lugaresEscuelas-1)].id)
                         persona.setTrasposte(self.trasportes[random.randint(0, self.lugaresTrasporte - 1)].id)
                     if (persona.edad >= 2 and persona.edad < 6):
                         persona.setTrabajo(self.trabajos[random.randint(0, self.lugaresTrabajos - 1)].id)
