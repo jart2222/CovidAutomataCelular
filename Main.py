@@ -1,7 +1,6 @@
 from repositorio.Repositorio import Repositorio
 from servicios.AsignacionLugares import AsignacionLugares
 from servicios.Imagenes import Imagenes
-
 asignacionLugares=AsignacionLugares(2,10)
 asignacionLugares.asignarEspacioPersona()
 repositorio=Repositorio()
@@ -13,7 +12,7 @@ for espacio in asignacionLugares.espacioInstancia:
           repositorio.insertarEspacios(espacio)
           repositorio.insertarPersona(espacio)
 
-for i in range(4):
+for i in range(8):
      asignacionLugares.moverPersonaEspacio()
      for espacio in asignacionLugares.espacioInstancia:
           imagenes = Imagenes(espacio)

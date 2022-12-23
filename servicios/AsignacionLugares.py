@@ -22,7 +22,7 @@ class AsignacionLugares:
         self.trasportes = []
         self.trabajos = []
         self.escuelas = []
-        self.personas=[]
+        self.personas = []
         self.crearEspacios();
 
 
@@ -95,7 +95,7 @@ class AsignacionLugares:
                         persona.setTrabajo(self.escuelas[random.randint(0,self.lugaresEscuelas-1)].id)
                         persona.setTrasposte(self.trasportes[random.randint(0, self.lugaresTrasporte - 1)].id)
                     if (persona.edad >= 2 and persona.edad < 6):
-                        persona.setTrabajo(self.trabajos[random.randint(0,self.lugaresTrabajos-1)].id)
+                        persona.setTrabajo(self.trabajos[random.randint(0, self.lugaresTrabajos - 1)].id)
                         persona.setTrasposte(self.trasportes[random.randint(0, self.lugaresTrasporte - 1)].id)
                     if (persona.edad >= 6):
                         continue
@@ -104,13 +104,14 @@ class AsignacionLugares:
         self.aumentarEtapa()
 
         for persona in self.personas:
-            idEspacioActual=persona.espacioActual
-            edad=persona.edad
+            idEspacioActual = persona.espacioActual
+            edad = persona.edad
 
-            if((idEspacioActual<self.lugaresCasas) and (edad < 6)):#persona esta en su casa y por su edad tiene que tomar el trasporte
-                trasporte= self.trasportes[persona.trasposte - (self.lugaresCasas)]
-                casa= self.casas[persona.casa]
-                self.cambioEspacio(persona, trasporte, casa,persona.trasposte )
+            if ((idEspacioActual < self.lugaresCasas) and (
+                    edad < 6)):  # persona esta en su casa y por su edad tiene que tomar el trasporte
+                trasporte = self.trasportes[persona.trasposte - (self.lugaresCasas)]
+                casa = self.casas[persona.casa]
+                self.cambioEspacio(persona, trasporte, casa, persona.trasposte)
                 continue
 
             if ((idEspacioActual >= self.lugaresCasas) and (idEspacioActual < (
@@ -118,37 +119,39 @@ class AsignacionLugares:
 
                 trasporte = self.trasportes[persona.trasposte - self.lugaresCasas]
 
-                if(self.contadorEtapas%4==0):#etapa en que las personas ya fueron al trabajo y regresan
+                if (self.contadorEtapas % 4 == 0):  # etapa en que las personas ya fueron al trabajo y regresan
                     casa = self.casas[persona.casa]
-                    self.cambioEspacio(persona,casa, trasporte, persona.casa)
+                    self.cambioEspacio(persona, casa, trasporte, persona.casa)
                     continue
 
-                else: #personas que van al trabajo
-                        if (edad >= 0 and edad < 2):
-                            escuela = self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
-                            self.cambioEspacio(persona, escuela, trasporte, persona.trabajo)
-                            continue
-                        if (edad >= 2 and edad <= 6):
-                            trabajo = self.trabajos[
-                                persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
-                            self.cambioEspacio(persona, trabajo, trasporte, persona.trabajo)
-                            continue
+                else:  # personas que van al trabajo
+                    if (edad >= 0 and edad < 2):
+                        escuela = self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
+                        self.cambioEspacio(persona, escuela, trasporte, persona.trabajo)
+                        continue
+                    if (edad >= 2 and edad <= 6):
+                        trabajo = self.trabajos[
+                            persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
+                        self.cambioEspacio(persona, trabajo, trasporte, persona.trabajo)
+                        continue
 
-            if((idEspacioActual >=(self.lugaresCasas+self.lugaresTrasporte)) ): # persona se encuentra en el trabajo y toma el trasporte para llegar a su casa
-                trasporte=self.trasportes[persona.trasposte - self.lugaresCasas]
+            if ((idEspacioActual >= (
+                    self.lugaresCasas + self.lugaresTrasporte))):  # persona se encuentra en el trabajo y toma el trasporte para llegar a su casa
+                trasporte = self.trasportes[persona.trasposte - self.lugaresCasas]
                 if (edad >= 0 and edad < 2):
-                    escuela=self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
-                    self.cambioEspacio(persona,trasporte,escuela,persona.trasposte)
+                    escuela = self.escuelas[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte)]
+                    self.cambioEspacio(persona, trasporte, escuela, persona.trasposte)
                     continue
 
                 if (edad >= 2 and edad <= 6):
-                    trabajo=self.trabajos[persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
-                    self.cambioEspacio(persona,trasporte,trabajo,persona.trasposte)
+                    trabajo = self.trabajos[
+                        persona.trabajo - (self.lugaresCasas + self.lugaresTrasporte + self.lugaresEscuelas)]
+                    self.cambioEspacio(persona, trasporte, trabajo, persona.trasposte)
                     continue
 
     def filtrarEspacios(self):
         for espacio in self.espacioInstancia:
-            if(espacio.nombre=="Casa"):
+            if (espacio.nombre == "Casa"):
                 self.casas.append(espacio)
                 continue
             if (espacio.nombre == "Trabajo"):
@@ -160,7 +163,7 @@ class AsignacionLugares:
             if (espacio.nombre == "Escuela"):
                 self.escuelas.append(espacio)
                 continue
-        #por cada persona en cada casa lo agrega a una lista
+        # por cada persona en cada casa lo agrega a una lista
         for casa in self.casas:
             for persona in casa.listaAutomatasContenidos:
                 self.personas.append(persona)
@@ -169,12 +172,8 @@ class AsignacionLugares:
         self.contadorEtapas += 1
         for espacio in self.espacioInstancia:
             espacio.setEtapa(self.contadorEtapas)
+
     def cambioEspacio(self, persona, espacioP, espacioA, asignacionE):
         persona.setEspacioActual(asignacionE)
         espacioP.addPersona(persona)
         espacioA.removePersona(persona)
-
-
-
-
-
