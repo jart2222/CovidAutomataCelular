@@ -28,7 +28,7 @@ class Espacio():
     @return  :
     @author
     """
-    pass
+    pass;
 
   def moverAutomata(self):
     """
