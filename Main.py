@@ -12,7 +12,7 @@ for espacio in asignacionLugares.espacioInstancia:
           repositorio.insertarEspacios(espacio)
           repositorio.insertarPersona(espacio)
 
-for i in range(8):
+for i in range(4):
      asignacionLugares.moverPersonaEspacio()
      for espacio in asignacionLugares.espacioInstancia:
           imagenes = Imagenes(espacio)

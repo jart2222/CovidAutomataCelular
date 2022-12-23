@@ -1,23 +1,26 @@
 class Persona():
-  def __init__(self,idPersona,edad,sexo,emfermedadesCronicas,contagiado,vacunado,ubicacionX,ubicacionY,espacioActual):
-    self.idPersona=idPersona;
-    self.edad=edad;
-    self.sexo=sexo;
-    self.emfermedadesCronicas=emfermedadesCronicas;
-    self.contagiado=contagiado;
-    self.vacunado=vacunado;
-    self.ubicacionX = ubicacionX;
-    self.ubicacionY = ubicacionY;
-    self.espacioActual = espacioActual;
-    self.vivo = True;
-    self.inmunidadAdquiridad = False;
-    self.casa=espacioActual
-    self.factorDeRiesgo = self.asignarFactorRiesgo();
-    self.diasInfectado = 0;
-    self.diasAdquisicionVirus = 0;
-    self.espaciosC = [];
-    self.trasposte=0;
-    self.trabajo=0;
+
+
+    def __init__(self, idPersona, edad, sexo, emfermedadesCronicas, contagiado, vacunado, ubicacionX, ubicacionY,
+                 espacioActual):
+        self.idPersona = idPersona;
+        self.edad = edad;
+        self.sexo = sexo;
+        self.emfermedadesCronicas = emfermedadesCronicas;
+        self.contagiado = contagiado;
+        self.vacunado = vacunado;
+        self.ubicacionX = ubicacionX;
+        self.ubicacionY = ubicacionY;
+        self.espacioActual = espacioActual;
+        self.vivo = True;
+        self.inmunidadAdquiridad = False;
+        self.casa = espacioActual
+        self.factorDeRiesgo = self.asignarFactorRiesgo();
+        self.diasInfectado = 0;
+        self.diasAdquisicionVirus = 0;
+        self.espaciosC = [];
+        self.trasposte = 0;
+        self.trabajo = 0;
 
     def asignarFactorRiesgo(self):
         """
