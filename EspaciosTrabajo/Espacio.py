@@ -1,14 +1,16 @@
 import numpy as np;
 class Espacio():
-  def __init__(self,dim,id,nombre):
+  def __init__(self,dim,id,nombre,subEtapa):
     self.id=id;
     self.nombre=nombre;
     self.dim = dim;
     self.a = np.zeros((dim,dim));
+    self.subEtapa=subEtapa
     self.etapa=0;
     self.listaAutomatasContenidos = []
     self.arregloEnteros1 = [*range(-1, 2, 1)]
     self.arregloEnteros2 = [*range(-1, 2, 1)]
+    self.contagiar = False;
 
   def dectarVecinoAutomata(self):
     """
@@ -17,10 +19,22 @@ class Espacio():
     @return  :
     @author
     """
-    pass
 
-  def setEtapa(self, etapa):
-    self.etapa=etapa
+    for persona in self.listaAutomatasContenidos:
+      if(persona.getContagiado()):
+        self.contagiar=True;
+
+    if(self.contagiar):
+      self.contagiarPersonas()
+
+
+
+  def contagiarPersonas(self):
+    for persona in self.listaAutomatasContenidos:
+      persona.contagiado=True;
+
+
+
   def darMovimientoAutomata(self):
     """
      Le asigna un movimiento a cada automata
@@ -29,7 +43,6 @@ class Espacio():
     @author
     """
     pass;
-
   def moverAutomata(self):
     """
      Corre el metodo de cambiar ubicicacion(Movimiento) a cada Automata en la lista
@@ -48,19 +61,11 @@ class Espacio():
     """
     pass
 
-  def obtenerImagenMatriz(self):
-    """
-     Obtiene la imagen de la matriz en cada etapa
-
-    @return  :
-    @author
-    """
-    pass
-
   def addPersona(self, persona):
     if persona not in self.listaAutomatasContenidos :
       self.listaAutomatasContenidos.append(persona);
       self.a[persona.ubicacionX, persona.ubicacionY] = 1
+
 
   def removePersona(self, persona):
 
@@ -71,8 +76,10 @@ class Espacio():
     else:
       print(f"\t\tNO me elimine de espacio {self.id} la persona con id {persona.idPersona}")
 
-
+  def setEtapa(self, etapa):
+    self.etapa=etapa
   def __str__(self) -> str:
+
     texto=f"Espacio: {self.nombre}\n" \
           f" id: {self.id}\n " \
           f"dim: {self.dim}"
@@ -80,5 +87,7 @@ class Espacio():
     if(len(self.listaAutomatasContenidos)>=0):
       for automata in self.listaAutomatasContenidos:
         texto+=str(automata)+"\n"
-
     return texto
+
+
+

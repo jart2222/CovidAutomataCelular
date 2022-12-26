@@ -77,6 +77,9 @@ class Persona():
     def setTrasposte(self, id):
         self.trasposte = id;
 
+    def getContagiado(self):
+        return self.contagiado;
+
     def vidaMuerte(self, azar):
         """
          Al factor del riego se le suma un numero al azar y si el resultado es mayor que

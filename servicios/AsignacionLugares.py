@@ -7,9 +7,10 @@ from modelo.Persona import Persona;
 
 
 class AsignacionLugares:
-    def __init__(self,casas,dim):
+    def __init__(self,casas,dim,subEtapas):
         self.dim=dim
         self.lugaresCasas=casas;
+        self.subEtapas=subEtapas
         self.espacioInstancia = []
         self.dias = 0
         self.contadorLugares=0;
@@ -37,7 +38,7 @@ class AsignacionLugares:
                     , random.randint(0, 8)  # Edad
                     , random.choice(['M', 'H'])  # Sexo: ->Mujer o Hombre
                     , random.randint(0, 3)  # Enfermedades Cronicas
-                    , False  # Contagiado
+                    , random.choice([True, False])  # Contagiado
                     , random.choice([True, False])  # Vacunado
                     , random.randint(0, self.dim-1)  # Coordenada X
                     , random.randint(0, self.dim-1) # Coordenada Y
@@ -49,7 +50,7 @@ class AsignacionLugares:
 
     def crearEspacios(self):
         for i in range(self.lugaresCasas):
-            casa = Casa(self.dim, self.contadorLugares, "Casa")
+            casa = Casa(self.dim, self.contadorLugares, "Casa", self.subEtapas)
 
             for i in range(random.randint(0, 10)):
                 casa.addPersona(self.creacionAutomata(self.contadorLugares))
@@ -58,17 +59,17 @@ class AsignacionLugares:
             self.contadorLugares += 1;
 
         for _ in range(self.lugaresTrasporte):
-            trasporte=Trasporte(self.dim, self.contadorLugares, "Trasporte")
+            trasporte=Trasporte(self.dim, self.contadorLugares, "Trasporte",self.subEtapas)
             self.contadorLugares += 1;
             self.espacioInstancia.append(trasporte)
 
         for _ in range(self.lugaresEscuelas):
-            escuela=Escuela(self.dim, self.contadorLugares, "Escuela")
+            escuela=Escuela(self.dim, self.contadorLugares, "Escuela", self.subEtapas)
             self.contadorLugares += 1;
             self.espacioInstancia.append(escuela)
 
         for _ in range(self.lugaresTrabajos):
-            trabajo=Trabajo(self.dim, self.contadorLugares, "Trabajo")
+            trabajo=Trabajo(self.dim, self.contadorLugares, "Trabajo", self.subEtapas)
             self.contadorLugares += 1;
             self.espacioInstancia.append(trabajo)
 

@@ -9,8 +9,8 @@ class Trabajo (Espacio):
   :author:
   """
 
-  def __int__(self, dim,id,nombre):
-    super().__int__(dim,id,nombre)
+  def __int__(self, dim,id,nombre, subEtapa):
+    super().__int__(dim,id,nombre, subEtapa)
 
 
 

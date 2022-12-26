@@ -1,7 +1,7 @@
 from repositorio.Repositorio import Repositorio
 from servicios.AsignacionLugares import AsignacionLugares
 from servicios.Imagenes import Imagenes
-asignacionLugares=AsignacionLugares(2,10)
+asignacionLugares=AsignacionLugares(2,10,5)#casas,dim,subEtapas
 asignacionLugares.asignarEspacioPersona()
 repositorio=Repositorio()
 repositorio.truncarInfo()
@@ -19,6 +19,7 @@ for i in range(4):
           imagenes.obtenerImagenMatriz()
           repositorio.insertarEspacios(espacio)
           repositorio.insertarPersona(espacio)
+          espacio.dectarVecinoAutomata()
 
 
 repositorio.cerrarConexion()
